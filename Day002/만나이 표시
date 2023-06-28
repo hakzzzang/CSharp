@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ifelse01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = Int32.Parse(Console.ReadLine());
+            int result = 2023 - a + 1;
+            int result1 = 2023 - a;
+            Console.WriteLine(result);
+            Console.WriteLine($"만({result1}세)");
+        }
+    }
+}
