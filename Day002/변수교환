@@ -1,0 +1,53 @@
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+
+
+namespace MyApp007
+
+{
+
+    internal class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            int a, b;
+
+            a = Int32.Parse(Console.ReadLine());
+
+            b = Int32.Parse(Console.ReadLine());
+
+
+
+            int c;
+
+            c = b;
+
+            b = a;
+
+            a = c;
+
+
+
+            Console.WriteLine($"{a} {b}");
+
+
+
+
+
+        }
+
+    }
+
+}
