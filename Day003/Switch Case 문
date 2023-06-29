@@ -1,0 +1,39 @@
+using System;
+
+namespace StringApp002
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("숫자를 입력해 주세요 : ");
+            int a = Int32.Parse(Console.ReadLine());
+
+            switch(a)
+            {
+                case 0:
+                    Console.WriteLine("\"일요일\" 입니다.");
+                    break;
+                case 1:
+                    Console.WriteLine("\"월요일\" 입니다.");
+                    break;
+                case 2:
+                    Console.WriteLine("\"화요일\" 입니다.");
+                    break;
+                case 3:
+                    Console.WriteLine("\"수요일\" 입니다.");
+                    break;
+                case 4:
+                    Console.WriteLine("\"목요일\" 입니다.");
+                    break;
+                case 5:
+                    Console.WriteLine("\"금요일\" 입니다.");
+                    break;
+                case 6:
+                    Console.WriteLine("\"토요일\"이 출력되었습니다.");
+                    break;
+
+            }
+        }
+    }
+}
