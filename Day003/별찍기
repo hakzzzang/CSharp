@@ -1,0 +1,146 @@
+제약: 50 이하의 정수가 입력됨을 가정합니다.﻿ 
+1단계 
+--------
+N? 5
+*
+**
+***
+****
+*****
+
+2단계
+N? 5
+*****
+****
+***
+**
+*
+
+3단계
+N? 5
+    *
+   **
+  ***
+ ****
+*****
+
+4단계
+N? 5
+ *****
+  ****
+   ***
+    **
+     *
+
+5단계 - 마름모
+(홀수만가능)
+N ? 5
+   *
+  ***
+ *****
+  ***
+   *
+
+1단계
+
+using System;
+
+namespace StringApp002
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = Int32.Parse(Console.ReadLine());
+            for (int i = 0; i < a; i++)
+            {
+                for (int j = 0; j < i + 1; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+
+        }
+    }
+}
+
+2단계
+
+using System;
+
+namespace StringApp002
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = Int32.Parse(Console.ReadLine());
+            for (int i = 1; i <= a; i++)
+            {
+                for (int j = i; j <= a; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+}
+
+
+3단계
+
+using System;
+
+namespace StringApp002
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 5; i > 0; i--)
+            {
+                for (int j = i - 1; j > 0; j--)
+                {
+                    Console.Write(" ");
+                }
+                for (int j = 5; j > i - 1; j--)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine();
+            }
+        }
+    }
+}
+
+4단계
+
+using System;
+
+namespace StringApp002
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                for (int j = 5; j > i; j--)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
