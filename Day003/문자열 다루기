@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Console;
+
+namespace StringSearch
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string greeting = "Good Morning";
+
+            WriteLine(greeting);
+            WriteLine();
+
+            //IndexOf() // 문자열 인덱싱
+            WriteLine($"{greeting.IndexOf("Morning")}");
+            WriteLine($"{greeting.IndexOf("d")}");
+
+            //LastIndexOf()  마지막에 나오는 문자열 인덱싱
+            WriteLine($"{greeting.LastIndexOf("Good")}");
+            WriteLine($"{greeting.LastIndexOf("d")}");
+
+            //StartsWith()   특정 문자열로 시작하는지
+            WriteLine($"{greeting.StartsWith("Good")}");
+            WriteLine($"{greeting.StartsWith("Morning")}");
+
+            //EndsWith()     특정 문자열로 끝나는지
+            WriteLine($"{greeting.EndsWith("Good")}");
+            WriteLine($"{greeting.EndsWith("Morning")}");
+
+            //Contains()     특정 문자열을 포함하는지
+            WriteLine($"Contains Evening : {greeting.Contains("Evening")}");
+            WriteLine($"Contains Moring : {greeting.Contains("Morning")}");
+
+            //Replace()      문자열1을 문자열2로 대체
+            WriteLine($"{greeting.Replace("Morning", "Evening")}");
+
+        }
+    }
+}
