@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MethodApp001
+{
+    internal class Program
+    {
+        static int sum(int a,int b)
+        {
+            int result = a + b;
+            return result;
+        }
+        static int Minus(int a,int b)
+        {
+            int result = a - b;
+            return result;
+        }
+        static int multiple(int a,int b)
+        {
+            int result = a * b;
+            return result;
+        }
+        static double divide(double a,double b)
+        {
+            double result = a / b;
+            return result;
+        }
+        static void Main(string[] args)
+        {
+            int a = sum(3, 5);
+            Console.WriteLine(a);
+
+            int b = Minus(3, 5);
+            Console.WriteLine(b);
+
+            int c = multiple(3, 5);
+            Console.WriteLine(c);
+
+            double d = divide(3, 5);
+            Console.WriteLine(d);
+        }
+    }
+}
