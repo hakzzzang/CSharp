@@ -1,0 +1,145 @@
+using System;
+
+using System.Collections.Generic;
+
+using System.Diagnostics.CodeAnalysis;
+
+using System.Linq;
+
+using System.Runtime.Remoting.Messaging;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+
+
+namespace MethodApp001
+
+{
+
+    internal class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {   // 변수선언
+
+            int[] a = new int[4];
+
+            int Sum = 0;
+
+
+
+            // string문자열로 입력
+
+            string[] input = Console.ReadLine().Split(' ');
+
+
+
+            // string 문자열 int 로 변환
+
+            for (int i = 0; i < 4; i++)
+
+            {
+
+                a[i] = int.Parse(input[i]);
+
+            }
+
+            // int로 변환한 값 더하기
+
+            for (int i = 0; i < 4; i++)
+
+            {
+
+                Sum += a[i];
+
+            }
+
+            Console.WriteLine(Sum);
+
+        }
+
+    }
+
+}
+
+
+
+
+
+// 메소드 사용
+
+
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Diagnostics.CodeAnalysis;
+
+using System.Linq;
+
+using System.Runtime.Remoting.Messaging;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+
+
+namespace MethodApp001
+
+{
+
+    internal class Program
+
+    {
+
+        static int plus(int a, int b, int c, int d)
+
+        {
+
+            return a + b + c + d;
+
+        }
+
+
+
+        static void Main(string[] args)
+
+        {   // 변수선언
+
+            int[] a = new int[4];
+
+
+
+            // string문자열로 입력
+
+            string[] input = Console.ReadLine().Split(' ');
+
+
+
+            // string문자열을 int형으로 변환해서 a배열에 생성
+
+            for(int i=0; i<4; i++)
+
+            {
+
+                a[i] = Int32.Parse(input[i]);
+
+            }
+
+
+
+            int result = plus(a[0], a[1], a[2], a[3]);
+
+            Console.WriteLine(result);
+
+        }
+
+    }
+
+}
