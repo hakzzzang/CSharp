@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MethodApp001
+{
+    internal class Program
+    {
+        static void Method01()
+        {
+            Console.WriteLine("hello method1");
+        }
+        static int Method02()
+        {
+            Console.WriteLine("hello method2");
+            return 100;
+        }
+        static string Method03()
+        {
+            Console.WriteLine("hello method3");
+            return "안녕하세요";
+        }
+        static int Method04(int n)
+        {
+            return n;
+        }
+        static double Method05(int a, int b)
+        {
+            double result = a + b;
+            return result;
+        }
+        static void Main(string[] args)
+        {
+            Method01();
+            int a = Method02();
+            string b = Method03();
+            Console.WriteLine();
+
+            int n = Method04(5);
+
+            double d = Method05(100, 200);
+            Console.WriteLine(d);
+        }
+    }
+}
