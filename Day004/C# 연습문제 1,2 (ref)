@@ -1,0 +1,87 @@
+//1번
+
+using System;
+
+
+
+namespace MethodApp001
+
+{
+
+    internal class Program
+
+    {
+
+        static double Square(double arg)
+
+        {
+
+            return arg * arg;
+
+        }
+
+        static void Main(string[] args)
+
+        {
+
+            Console.Write("수를 입력하세요 : ");
+
+            string input = Console.ReadLine();
+
+            double arg = Convert.ToDouble(input);
+
+            Console.WriteLine("결과 : {0}", Square(arg));
+
+        }
+
+    }
+
+}
+
+
+
+// 2번
+
+using System;
+
+
+
+namespace MethodApp001
+
+{
+
+    internal class Program
+
+    {
+
+
+
+        static void Main(string[] args)
+
+        {
+
+            double mean = 0;
+
+            double q = 1,w = 2,e = 3, r = 4, t = 5;
+
+
+
+            Mean(ref q,ref w,ref e,ref r,ref t, ref mean);
+
+            Console.WriteLine("평균 : {0}", mean);
+
+        }
+
+        public static void Mean(ref double a,ref double b,ref double c,ref double d,
+
+           ref double e,ref double mean)
+
+        {
+
+            mean = (a + b + c + d + e) / 5;
+
+        }
+
+    }
+
+}
