@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MethodApp001
+{
+    class Calculator
+    {
+        static void Divide(int a, int b, out int q, out int r)
+        {
+            q = a / b;
+            r = a % b;
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                int a = 20, b = 3;
+                Divide(a, b, out int c, out int d);
+                Console.WriteLine($"{c} {d}");
+            }
+        }
+    }
+}
+
+// out을 사용할 때, 매개변수를 따로 정의하지않아도 사용할 수 있음
