@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MethodApp001
+{
+    class Calculator
+    {
+        internal class Program
+        {
+            static void swap(ref int x,ref int y)
+            {
+                int c = y;
+                y = x;
+                x = c;
+            }
+            static void Main(string[] args)
+            {
+                int a = 3; int b = 4;
+                Console.WriteLine($"{a} {b}");
+                swap(ref a, ref b);
+                Console.WriteLine($"{a} {b}");
+            }
+        }
+    }
+}
