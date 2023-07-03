@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZooApp001
+{
+    class Cat
+    {
+        private string name;
+        private int age;
+        private string color;
+      
+        public Cat()
+        {
+        }
+        public void setName(string _name)
+        {
+            this.name = _name;
+        }
+        public void setAge(int _age)
+        {
+            this.age = _age;
+        }
+        public void setcolor(string _color)
+        {
+            this.color = _color;
+        }
+        public string getName()
+        {
+            return this.name;
+        }
+        public int getAge()
+        {
+            return this.age;
+        }
+        public string getColor()
+        {
+            return this.color;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Cat cat = new Cat();
+            cat.setName("네로");
+            cat.setAge(10);
+            cat.setcolor("검은색");
+            Console.WriteLine(cat.getName());
+            Console.WriteLine(cat.getAge()+"살");
+            Console.WriteLine(cat.getColor());
+        }
+    }
+}
