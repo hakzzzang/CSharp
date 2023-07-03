@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace while001
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int i = 0;
+            do
+            {
+                Console.WriteLine("Hello");
+                i++;
+            } while (i > 5);            // 원래 while문이라면 실행되지 않아야하지만 do while문은 최초 1회는 실행하기때문에 Hello 하나만 출력
+        }
+    }
+}
