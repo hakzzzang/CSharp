@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace snailarray
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int value = int.Parse(Console.ReadLine());
+            int[,] array = new int[value, value];
+
+            int count = 0;
+            int x = 0;
+            int y = -1;
+            int K = value;
+            int s = 1;
+            int s1 = 1;
+            
+            while(true)
+            {
+                for(int i = 0; i < K; i++)
+                {
+                    count++;
+                    y = y + s;
+                    array[x,y] = count;
+                }
+                K = K - 1;
+
+                if(K==0)
+                {
+                    break;
+                }
+                for (int i = 0; i < K; i++)
+                {
+                    count++;
+                    x = x + s;
+                    array[x, y] = count;
+                }
+                s = s * -1;
+            }
+            for(int i = 0; i < value;i++)
+            {
+                for(int j=0; j < value; j++)
+                {
+                    Console.Write(array[i, j]+" ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
