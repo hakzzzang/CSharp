@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OOPApp009
+{
+    abstract class Car
+    {
+        public abstract void ride();
+    }
+
+    class Avante : Car
+    {
+        public override void ride()
+        {
+            Console.WriteLine("아반떼에 탑승하였습니다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Car car = new Avante();
+            Avante avante = new Avante();
+            car.ride();
+            avante.ride();
+
+        }
+    }
+}
