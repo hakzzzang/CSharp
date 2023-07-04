@@ -1,0 +1,83 @@
+// 멤버변수 사용
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Calculator
+{
+    class Calculator
+    {
+        public int kor { get; set; }
+        public int eng { get; set; }
+        public int math { get; set; }
+
+        public int executeTotalScore()
+        {
+            return kor + eng + math;
+        }
+        public int executeAvg()
+        {
+            return (kor + eng + math) / 3;
+        }
+        // 멤버 메소드
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Calculator cal = new Calculator();
+            Console.Write("국어 : ");
+            cal.kor = Int32.Parse(Console.ReadLine());
+            Console.Write("영어 : ");
+            cal.eng = Int32.Parse(Console.ReadLine());
+            Console.Write("수학 : ");
+            cal.math = Int32.Parse(Console.ReadLine());
+            Console.WriteLine($"총점 : {cal.executeTotalScore()}");
+            Console.WriteLine($"평균 : {cal.executeAvg()}");
+        }
+    }
+}
+
+
+// 멤버변수 없이 메소드만 정의
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Calculator
+{
+    class Calculator
+    {
+        public int executeTotalScore(int kor, int eng, int math)
+        {
+            return kor + eng + math;
+        }
+        public int executeAvg(int total)
+        {
+            return total / 3;
+        }
+        // 멤버 메소드
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Calculator cal = new Calculator();
+            Console.Write("국어 : ");
+            int kor = Int32.Parse(Console.ReadLine());
+            Console.Write("영어 : ");
+            int eng = Int32.Parse(Console.ReadLine());
+            Console.Write("수학 : ");
+            int math = Int32.Parse(Console.ReadLine());
+            int total = cal.executeTotalScore(kor, eng, math);
+            Console.WriteLine($"총점 : {total}");
+            Console.WriteLine($"평균 : {cal.executeAvg(total)}");
+        }
+    }
+}
