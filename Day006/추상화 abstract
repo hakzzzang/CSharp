@@ -1,34 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOPApp009
+namespace OOPApp010
 {
-    abstract class Car
+    abstract class Animal
     {
-        public abstract void ride();
-    }
+        public abstract string eat();
 
-    class Avante : Car
+    }
+    class Dog : Animal
     {
-        public override void ride()
+        public override string eat()
         {
-            Console.WriteLine("아반떼에 탑승하였습니다.");
+            return "쩝쩝";
         }
+    }
+    class Bark : Dog
+    {
     }
     internal class Program
     {
         static void Main(string[] args)
         {
-            Car car = new Avante();
-            Avante avante = new Avante();
-            car.ride();
-            avante.ride();
-
+            Bark b1 = new Bark();
+            Console.WriteLine(b1.eat());
         }
     }
 }
