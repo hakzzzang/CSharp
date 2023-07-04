@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OOPApp009
+{
+    class shape
+    {
+        public virtual void Draw()
+        {
+            Console.WriteLine("도형을 그리다.");
+        }
+    }
+
+    class triangle : shape
+    {
+        public override void Draw()
+        {
+            Console.WriteLine("삼각형을 그리다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            shape s1 = new shape();
+            triangle t1 = new triangle();
+            s1.Draw();
+            t1.Draw();
+
+            Console.WriteLine();
+
+            shape t2 = new triangle();  // 부모클랜스의 레퍼런스로 자식
+                                        // 클래스를 생성할 때가 많이 생김
+            t2.Draw();                  // virtual, override의 필요성!
+        }
+    }
+}
