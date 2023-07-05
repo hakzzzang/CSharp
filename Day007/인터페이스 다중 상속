@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InterfaceApp004
+{
+    interface IRunnable
+    {
+        void Run();
+    }
+    interface IFlyable
+    {
+        void Fly();
+    }
+    class FlyingCar : IRunnable, IFlyable
+    {
+        public void Fly()
+        {
+            Console.WriteLine("날다!");
+        }
+
+        public void Run()
+        {
+            Console.WriteLine("뛰다!");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            FlyingCar car = new FlyingCar();
+            car.Fly();
+            car.Run();
+        }
+    }
+}
