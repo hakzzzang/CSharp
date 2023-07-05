@@ -1,0 +1,25 @@
+// See https://aka.ms/new-console-template for more information
+
+
+interface iLogger
+{
+    public void WriteLog(string message);
+}
+
+class ConsoleLogger : iLogger
+{
+    public void WriteLog(string message)
+    {
+        Console.WriteLine(DateTime.Now.ToLocalTime() + " " + message);
+    }
+}
+class MainClass
+{ 
+    public static void Main(string[] args)
+    {
+        ConsoleLogger consoleLogger = new ConsoleLogger();
+        consoleLogger.WriteLog("장애 이벤트 발생");
+    }
+}
+
+//interface를 정의하고, interface에 따라 각 기능을 구현하는 방식
