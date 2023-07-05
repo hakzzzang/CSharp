@@ -1,0 +1,30 @@
+// See https://aka.ms/new-console-template for more information
+public class program
+{
+    interface iWing
+    {
+        public void fly();
+    }
+
+    class Horse
+    {
+
+    }
+
+    class Unicon : Horse, iWing
+    {
+        public void fly()
+        {
+            Console.WriteLine("유니콘이 날다.");
+        }
+    }
+    class Angel
+    {
+
+    }
+    public static void Main(string[] args)
+    {
+        Unicon unicon = new Unicon();
+        unicon.fly();
+    }
+}
