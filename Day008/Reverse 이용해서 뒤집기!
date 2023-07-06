@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StringApp01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+            char[] array = input.ToCharArray(); // string을 Char형 배열로 만들어 저장
+            Array.Reverse(array);
+            Console.Write(array);
+        }
+    }
+}
