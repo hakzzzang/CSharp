@@ -23,15 +23,15 @@ namespace pracice1
                 {
                     bigAlpha++;
                 }
-                if ((int)code[i]>='a' && ((int)code[i]<='z'))
+                else if ((int)code[i]>='a' && ((int)code[i]<='z'))
                 {
                     smallAlpha++;
                 }
-                if ((int)code[i]>='0' && (((int)code[i]<='9')))
+                else if ((int)code[i]>='0' && (((int)code[i]<='9')))
                 {
                     number++;
                 }
-                if (((int)code[i]>=33 && (int)code[i]<=47) || ((int)code[i]>=58 &&
+                else if (((int)code[i]>=33 && (int)code[i]<=47) || ((int)code[i]>=58 &&           // else로 고치면 이렇게 힘들게 칠 필요 없음.
                     (int)code[i]<=64) || ((int)code[i]>=91 && (int)code[i]<=96) ||
                     ((int)code[i]>=123 && (int)code[i]<=127))
                 {
