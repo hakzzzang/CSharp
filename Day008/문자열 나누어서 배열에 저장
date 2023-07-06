@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StringApp01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string greeting = "Good Morning!";
+
+            Console.WriteLine(greeting.Substring(0, 5));
+            Console.WriteLine(greeting.Substring(5));
+            Console.WriteLine();
+
+            string[] arr = greeting.Split(' ');  // 공백을 기준으로 배열에 입력
+            Console.WriteLine(arr[0]);
+            Console.WriteLine(arr[1]);
+            
+            foreach(string element in arr)
+            {
+                Console.WriteLine(element);
+            }
+        }
+    }
+}
