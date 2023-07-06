@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace pracice1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int bigAlpha = 0;
+            int smallAlpha = 0;
+            int special = 0;
+            int number = 0;
+
+            Console.Write("문자열을 입력하세요 : ");
+            string code = Console.ReadLine();
+            for(int i=0; i<code.Length; i++)
+            {
+                if ((int)code[i]>='A' && (int)code[i]<='Z')
+                {
+                    bigAlpha++;
+                }
+                if ((int)code[i]>='a' && ((int)code[i]<='z'))
+                {
+                    smallAlpha++;
+                }
+                if ((int)code[i]>='0' && (((int)code[i]<='9')))
+                {
+                    number++;
+                }
+                if (((int)code[i]>=33 && (int)code[i]<=47) || ((int)code[i]>=58 &&
+                    (int)code[i]<=64) || ((int)code[i]>=91 && (int)code[i]<=96) ||
+                    ((int)code[i]>=123 && (int)code[i]<=127))
+                {
+                    special++;
+                }
+
+            }
+            Console.WriteLine($"알파벳 대문자 : {bigAlpha}");
+            Console.WriteLine($"알파벳 소문자 : {smallAlpha}");
+            Console.WriteLine($"숫자 : {number}");
+            Console.WriteLine($"특수문자 : {special}");
+
+            // 33~47, 58~64, 91~96, 123~127은 특수문자
+            // 48~57은 숫자
+            // 65~90은 대문자
+            // 97~122는 대문자
+        }
+    }
+}
