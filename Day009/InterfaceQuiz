@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InterfaceQuiz01
+{
+    //1. 무기 인터페이스
+    //2. iBow 인터페이스 (무기를 상속받은)
+    //3. Hero -> Name 멤버 변수
+    //4. Knigh -> 아더 생성
+
+    interface iWeapon
+    {
+        void attack();
+    }
+    interface iBow : iWeapon
+    {
+
+    }
+    class hero
+    {
+        public string Name { get; set; }
+    }
+    class Knight : hero, iBow
+    {
+        public Knight(string name)
+        {
+            Name = name;
+        }
+        public void attack()
+        {
+            Console.WriteLine(Name+"가 활을 쏩니다.");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Knight knight = new Knight("아더");
+            knight.attack();
+        }
+    }
+}
