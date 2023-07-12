@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GenericApp003
+{
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> list = new List<int>();
+            for(int i=0; i<5; i++)
+            {
+                list.Add(i);
+            }
+            list.RemoveAt(4); // 4인 값을 제거
+            foreach (int element in list)
+            {
+                Console.WriteLine(element);
+            }
+            list.Insert(4, 4); // 4번째 자리에 4 넣기
+            foreach (int element in list)
+            {
+                Console.WriteLine(element);
+            }
+
+        }
+    }
+}
