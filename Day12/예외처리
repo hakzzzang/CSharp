@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExceptionApp001
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr = { 1, 2, 3 };
+
+            try
+            {
+                //1.예외
+                /*
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine(arr[i]);
+                }
+                */
+                int a = 100;
+                int result = a / 0;
+            }
+            catch (IndexOutOfRangeException ex) //배열 초과 오류를 캐치함
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(0);
+            }
+            catch(Exception ex)  // 0으로 나눌때는 여기서 걸림 Exception ex 는 포괄적인 오류
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(0);
+            }
+        }
+    }
+}
