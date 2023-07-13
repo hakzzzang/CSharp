@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dictionary
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"id","haksukim"},
+                {"pwd","1234"}
+            };
+
+            string id, pwd;
+            Console.Write("ID를 입력해주세요 : ");
+            id = Console.ReadLine();
+            Console.Write("PWD를 입력해주세요 : ");
+            pwd = Console.ReadLine();
+            if(dic["id"] == id && dic["pwd"] == pwd)
+            {
+                Console.WriteLine("로그인 성공");
+            }
+            else
+            {
+                Console.WriteLine("로그인 실패");
+            }
+        }
+     }
+ }
