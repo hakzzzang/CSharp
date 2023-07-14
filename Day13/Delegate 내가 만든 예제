@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DelegateChain_Easy
+{
+    delegate void Studying(string subject);
+
+    internal class Program
+    {
+        public static void Day(string subject)
+        {
+            Console.WriteLine("오늘은 " + subject + " 수업이 있습니다.");
+        }
+        public static void getup(string subject)
+        {
+            Console.WriteLine(subject + "수업을 듣기 위해 일어났습니다.");
+        }
+        public static void school(string subject)
+        {
+            Console.WriteLine(subject + " 수업을 듣기 위해 학교로 갑니다.");
+        }
+        static void Main(string[] args)
+        {
+            Studying study = new Studying(Day);
+            study += new Studying(getup);
+            study += new Studying(school);
+            study("수학");
+        }
+    }
+}
