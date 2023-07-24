@@ -1,0 +1,80 @@
+﻿1. 5초마다 30초가 되면 종료 
+ 현재 시간과 출력 메시지를 적는 SWBot을 만드세요.!!
+myLog.txt 출력해 주세요.
+------------------------------------------------
+
+2023:07:24 15:19:35 : 정상 동작 중!!!
+2023:07:24 15:19:40 : 정상 동작 중!!! 
+2023:07:24 15:19:45 : 정상 동작 중!!! 
+2023:07:24 15:19:50 : 정상 동작 중!!! 
+2023:07:24 15:19:55 : 정상 동작 중!!! 
+2023:07:24 15:20:00 : 정상 동작 중!!! 
+
+2. DB 로그 테이블을 만들어서
+  5초마다 이벤트 테이블에 삽입하세요
+LOGID integer(4)
+LOGTIME varchar2(30)
+LOGMESSAGE varchar2(50)
+
+단, 테이블은 만들어져 있다고 가정한다.
+
+Advanced SEQ_LOG를 만들어서 AutoIncrement로 만들어 봅니다.
+
+
+
+using Oracle.ManagedDataAccess.Client;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading;
+
+namespace usingstream001
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string strConn = @"Data Source=
+                        (DESCRIPTION =
+                            (ADDRESS_LIST =
+                                (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+                            )
+                            (CONNECT_DATA =
+                            (SERVICE_NAME = xe)
+                            )
+                        );User Id=hr;Password=hr";
+
+            OracleConnection conn = new OracleConnection(strConn);
+            conn.Open();
+
+            OracleCommand cmd = new OracleCommand();
+            cmd.Connection = conn;
+
+            string path = "C:\\Temp\\myLog.log";
+            try
+            {
+                FileStream fs = new FileStream(path, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+                for(int i = 0; i< 5; i++)
+                {
+                    sw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")+" : 정상 동작 중!!!");
+                    sw.Flush();
+                    cmd.CommandText = $"INSERT INTO LOGDATA VALUES(LOGSEQ.NEXTVAL,'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','정상 동작 중 !!!')";
+                    cmd.ExecuteNonQuery();
+                    Thread.Sleep(5000);
+                }
+                sw.Close();
+                conn.Close();
+
+                fs = new FileStream(path, FileMode.Open);
+                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                string str = sr.ReadToEnd();
+                Console.WriteLine(str);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}
