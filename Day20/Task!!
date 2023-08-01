@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TaskApp001
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //mainThread가 작업중
+            Action someAction = () =>
+            {
+                // 1. 1 ~ 100까지 더하기
+                // 2. A ! Z까지 출력
+                Console.WriteLine("someAction1");
+            };
+            Task myTask1 = new Task(someAction); // Action 대리자 구현부를 넣어주면 스레드처럼 동작
+            myTask1.Start();
+            myTask1.Wait();   // Join()
+
+            Console.WriteLine("메인 종료.");
+
+            Task myTask2 = Task.Run(() =>
+            {
+                Console.WriteLine("someAciton2");
+            });
+            
+        }
+    }
+}
