@@ -1,0 +1,83 @@
+// 스레드의 충돌을 방지하기 위해 lock과 monitor를 사용
+// lock보다 monitor가 사용하기 어렵지만, 더 섬세한 동기화 가능
+// 본 예제는 스레드 레이싱 문제로 1000을 더한 후 1000을 빼는 코드인데, 결과가 -3, -2 등 무분별하게 나옴
+// lock을 사용하여 동기화를 제공함으로써 결과값 0
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using 쓰레드동기화;
+
+namespace 쓰레드동기화
+{
+    class Counter
+    {
+        const int LOOP_COUNT = 1000;
+        readonly object thisLock;
+
+        private int count;
+        public int Count
+        {
+            get { return count; }
+        }
+
+        public Counter()
+        {
+            thisLock = new object();
+            count = 0;
+        }
+
+        public void Increase()
+        {
+            int loopCount = LOOP_COUNT;
+            while (loopCount-- > 0)
+            {
+                lock (thisLock)
+                {
+                    count++;
+                }
+                Thread.Sleep(1);
+            }
+        }
+
+        public void Decrease()
+        {
+            int loopCount = LOOP_COUNT;
+            while (loopCount-- > 0)
+            {
+                lock (thisLock)
+                {
+                    count--;
+                }
+                Thread.Sleep(1);
+            }
+        }
+    }
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Counter counter = new Counter();
+
+            Thread incThread = new Thread(
+            new ThreadStart(counter.Increase));
+            Thread decThread = new Thread(
+            new ThreadStart(counter.Decrease));
+
+            incThread.Start();
+            decThread.Start();
+
+            incThread.Join();
+            decThread.Join();
+
+            Console.WriteLine(counter.Count);
+
+        }
+    }
+}
