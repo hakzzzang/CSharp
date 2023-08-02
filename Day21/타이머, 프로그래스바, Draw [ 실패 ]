@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp7
+{
+    public partial class Form1 : Form
+    {
+        private int time = 0;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            progressBar1.Value = 0;
+            timer1.Start();
+            Graphics g = panel1.CreateGraphics();
+            Pen blackPen = new Pen(Color.Black, 3);
+            SolidBrush redbrush = new SolidBrush(Color.Red);
+
+            Point p1 = new Point(125, 30);
+            Point p2 = new Point(50, 100);
+            Point p3 = new Point(200, 100);
+            Point[] points = { p1, p2, p3 };
+
+            g.DrawPolygon(blackPen, points);
+            g.FillPolygon(redbrush, points);
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(progressBar1.Value != progressBar1.Maximum)
+            {
+                progressBar1.Value += 1;
+            }
+            else
+            {
+                panel1.Invalidate();
+                
+                Graphics g = panel1.CreateGraphics();
+                Pen blackPen = new Pen(Color.Black, 3);
+                SolidBrush redbrush = new SolidBrush(Color.Red);
+                Rectangle rec = new Rectangle(70, 30, 100, 100);
+                g.DrawEllipse(blackPen, rec);
+                g.FillEllipse(redbrush, rec);
+                Thread.Sleep(10000);
+            }
+        }
+    }
+}
