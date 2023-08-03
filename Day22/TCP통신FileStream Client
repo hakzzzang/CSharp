@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SimpleTcpFileClient
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string 서버아이피 = "127.0.0.1";
+
+            int port = 13000;
+
+            TcpClient client = new TcpClient(서버아이피, port);
+
+            string filepath = @"./haksu.png";
+
+            using (NetworkStream stream = client.GetStream())
+            {
+                byte[] data = new byte[1024];
+                using (FileStream fs = new FileStream(filepath, FileMode.Create, FileAccess.Write))
+                {
+                    int bytesRead;
+                    while((bytesRead = stream.Read(data, 0, data.Length)) > 0)
+                    {
+                        fs.Write(data, 0, bytesRead);
+                    }
+                }
+            }
+            Console.WriteLine($"파일 수신 완료 : {filePath}");
+            client.Close();
+        }
+    }
+}
