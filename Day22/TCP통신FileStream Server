@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SimpleTcpFileServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            IPAddress 서버아이피 = IPAddress.Parse("192.168.42.162");
+            int port = 13000;
+
+            TcpListener 서버 = new TcpListener(서버아이피, port);
+            서버.Start();
+            Console.WriteLine("서버시작");
+            using (TcpClient client = 서버.AcceptTcpClient())
+            {
+                Console.WriteLine("연결 성공!!");
+
+                //사진전송
+                using (NetworkStream stream = client.GetStream())
+                {
+                    byte[] data = File.ReadAllBytes(@"./학수.png");
+                    stream.Write(data, 0, data.Length);
+                }
+                
+            }
+            서버.Stop();
+        }
+    }
+}
