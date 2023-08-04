@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace TcpQuizClient
+{
+    class json
+    {
+        public string text1 { get; set; }
+        public string text2 { get; set; }
+    }
+    public partial class Form1 : Form
+    {
+        TcpClient client;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string serverip = "127.0.0.1";
+            int port = 13000;
+
+            client = new TcpClient(serverip, port);
+            
+            
+
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            json json1 = new json();
+            json1.text1 = textBox1.Text;
+            json1.text2 = textBox2.Text;
+            string text = System.Text.Json.JsonSerializer.Serialize(json1);
+            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            NetworkStream stream = client.GetStream();
+            stream.Write(bytes, 0, bytes.Length);
+        }
+    }
+}
