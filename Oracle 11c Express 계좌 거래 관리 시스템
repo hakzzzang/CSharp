@@ -1,0 +1,256 @@
+
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Text.RegularExpressions;
+
+namespace LinqSample_001
+{
+    public class NHBank
+    {
+        public string Name  { get; set; }
+        public string ResidentNum { get; set; }
+        public int AccountNumber { get; set; }
+        public int Money { get; set; }
+        public int Password { get; set; }
+        public string TransactionLog { get; set; }
+    }
+    public class NHBankContext : DbContext
+    {
+        public DbSet<NHBank> NHBank { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseOracle("User Id=c##scott;Password=tiger;Data Source=127.0.0.1/XE;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<NHBank>()   //Primary key 지정
+                .Property(p => p.Name)
+                .HasMaxLength(30);
+
+            modelBuilder.Entity<NHBank>()   //Varchar2(30) 30크기를 정할 때
+                .Property(p => p.ResidentNum)
+                .HasMaxLength(6);
+
+            modelBuilder.Entity<NHBank>()   //Varchar2(30) 30크기를 정할 때
+                .HasKey(p => p.AccountNumber);
+
+            modelBuilder.Entity<NHBank>()
+                .Property(p => p.Money)
+                .HasMaxLength(30);
+
+            modelBuilder.Entity<NHBank>()
+                .Property(p => p.Password)
+                .HasMaxLength(4);
+
+            modelBuilder.Entity<NHBank>()
+                .Property(p => p.TransactionLog)
+                .HasMaxLength(5000);
+        }
+    }
+
+
+    internal class Program
+    {
+        static void DisplayHeader()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(
+                " _       __     __                             __           ___                               __     __  ___                                 \r\n| |     / /__  / /________  ____ ___  ___     / /_____     /   | ______________  __  ______  / /_   /  |/  /___ _____  ____ _____ ____  _____\r\n| | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\   / __/ __ \\   / /| |/ ___/ ___/ __ \\/ / / / __ \\/ __/  / /|_/ / __ `/ __ \\/ __ `/ __ `/ _ \\/ ___/\r\n| |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /  / ___ / /__/ /__/ /_/ / /_/ / / / / /_   / /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n|__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/   \\__/\\____/  /_/  |_\\___/\\___/\\____/\\__,_/_/ /_/\\__/  /_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n                                                                                                                          /____/             "
+                );
+            Console.ResetColor();
+        }
+
+        static void DisplayMenu()
+        {
+            Console.WriteLine("1. 계좌 개설");
+            Console.WriteLine("2. 계좌 금액 조회");
+            Console.WriteLine("3. 거래 내역 조회");
+            Console.WriteLine("4. 타 계좌 입금");
+            Console.WriteLine("5. 돈 벌기");
+            Console.WriteLine();
+        }
+        static void Main(string[] args)
+        {
+            DisplayHeader();
+            int i = 1;
+            using (var context = new NHBankContext())
+            {
+                // 데이터베이스와 테이블 생성
+                context.Database.EnsureDeleted(); //기존의 테이블이 있을경우 삭제를 단행하는데 DB자체를 지우는 명령어라 타 테이블도 삭제됩니다.
+                //조심해서 사용해야할 필요가 있습니다.
+                context.Database.EnsureCreated();   //테이블 또는 DB를 만드는 명령어인데 기존에 존재하는 파일이 있다면 아무 작업도 하지 않습니다.
+                Console.WriteLine("NH 은행 영업이 시작되었습니다.");
+            }
+            while (true)
+            {
+                DisplayMenu();
+                Console.Write("번호를 입력하세요 : ");
+                int a = Int32.Parse(Console.ReadLine());
+                Console.WriteLine();
+                Console.WriteLine();
+
+                if(a==1)
+                {
+                    Console.WriteLine("1. 계좌 개설을 선택하셨습니다.");
+                    Console.Write("이름을 입력해주세요 : ");
+                    string name = Console.ReadLine();
+                    Console.Write("주민등록번호 앞자리를 입력해주세요 : ");
+                    string residentnum = Console.ReadLine();
+                    Console.Write("통장 비밀번호 4자리를 입력해주세요 : ");
+                    int password = Int32.Parse(Console.ReadLine());
+
+                    // 데이터 삽입
+                    using (var context = new NHBankContext())
+                    {
+                        var banks = new List<NHBank>
+                        {
+                            new NHBank { Name = name, ResidentNum = residentnum, AccountNumber = (i++), Money = 0, Password = password, TransactionLog = DateTime.Now + " 계좌 개설" },
+                        };
+
+                        context.NHBank.AddRange(banks);
+                        context.SaveChanges();
+                        Console.WriteLine();
+                        Console.WriteLine("통장 개설이 완료되었습니다.");
+                        Console.WriteLine($"당신의 계좌번호는 {(i-1)}입니다.");
+                    }
+                    Console.WriteLine();
+                }
+
+                else if(a==2)
+                {
+                    Console.WriteLine("2. 계좌 금액 조회를 선택하셨습니다.");
+                    Console.Write("계좌 번호를 입력해주세요 : ");
+                    int accountnumber = Int32.Parse(Console.ReadLine());
+                    Console.Write("통장 비밀번호 4자리를 입력해주세요 : ");
+                    int password = Int32.Parse(Console.ReadLine());
+
+                    using (var context = new NHBankContext())
+                    {
+                        var BankToSelect = context.NHBank.FirstOrDefault(p => p.AccountNumber == accountnumber && p.Password == password);
+                        if (BankToSelect != null)
+                        {
+                            Console.WriteLine(new string('-', 40));
+                            Console.WriteLine($"현재 금액 : {BankToSelect.Money}원");
+                            Console.WriteLine(new string('-', 40));
+
+                        }
+                    }
+                    Console.WriteLine();
+                }
+
+                else if(a==3)
+                {
+                    Console.WriteLine("3. 거래 내역 조회를 선택하셨습니다.");
+                    Console.Write("계좌번호를 입력해주세요 : ");
+                    int accountNumber = Int32.Parse(Console.ReadLine());
+                    Console.Write("통장 비밀번호 4자리를 입력해주세요 : ");
+                    int password = Int32.Parse(Console.ReadLine());
+
+                    using (var context = new NHBankContext())
+                    {
+                        var BankToSelect = context.NHBank.FirstOrDefault(p => p.AccountNumber == accountNumber && p.Password == password);
+                        if (BankToSelect != null)
+                        {
+                                Console.WriteLine(new string('-', 40));
+                                // 날짜 형식을 찾아 앞에 줄바꿈 문자를 추가합니다.
+                                string pattern = @"(\d{4}-\d{2}-\d{2})";
+                                string replaced = Regex.Replace(BankToSelect.TransactionLog, pattern, "\n$1");
+
+                                // 수정된 문자열을 출력합니다.
+                                Console.WriteLine(replaced.Trim()); // Trim()을 사용하여 앞쪽의 불필요한 줄바꿈을 제거합니다.
+                                Console.WriteLine(new string('-', 40));
+                            
+                        }
+                    }
+                    Console.WriteLine();
+                }
+
+                else if(a==4)
+                {
+                    Console.WriteLine("4. 타 계좌 입금을 선택하셨습니다.");
+                    Console.Write("본인 명의 계좌 번호를 입력해주세요 : ");
+                    int accountnumber = Int32.Parse(Console.ReadLine());
+                    Console.Write("계좌 비밀번호를 입력해주세요 : ");
+                    int password = Int32.Parse(Console.ReadLine());
+                    Console.Write("입금할 타 계좌 번호를 입력해주세요 : ");
+                    int accountnumber1 = Int32.Parse(Console.ReadLine());
+                    Console.Write("입금할 금액을 입력해주세요 : ");
+                    int money = Int32.Parse(Console.ReadLine());
+                    // 본인 계좌 돈 확인 후 마이너스 처리
+
+                    using (var context = new NHBankContext())
+                    {
+                        var BankToSelect = context.NHBank.FirstOrDefault(p => p.AccountNumber == accountnumber && p.Password == password);
+                        if (BankToSelect != null)
+                        {
+                            if(BankToSelect.Money < money)
+                            {
+                                Console.WriteLine("돈이 없습니다.");
+                                continue;
+                            }
+                            BankToSelect.Money -= money;
+                            BankToSelect.TransactionLog += $"{DateTime.Now} {accountnumber1} 계좌에 돈을 보냈습니다. -{money}";
+                        }
+                        context.SaveChanges();
+                    }
+                    using (var context = new NHBankContext())
+                    {
+                        var BankToSelect = context.NHBank.FirstOrDefault(p => p.AccountNumber == accountnumber1);
+                        if (BankToSelect != null)
+                        {
+                            BankToSelect.Money += money;
+                            BankToSelect.TransactionLog += $"{DateTime.Now} {accountnumber} 계좌에서 돈을 받았습니다. +{money}";
+                        }
+                        context.SaveChanges();
+                    }
+                }
+                
+                else if(a==5)
+                {
+                    Console.WriteLine("5. 일하기를 선택하셨습니다.");
+                    Console.Write("계좌 번호를 입력해주세요 : ");
+                    int acoountnumber = Int32.Parse(Console.ReadLine());
+                    Console.WriteLine(new string('-', 40));
+                    Console.WriteLine("1. 식당 알바 : + 100,000원");
+                    Console.WriteLine("2. 새우잡이 : + 200,000원");
+                    Console.WriteLine("3. MES개발 : + 1,000,000원");
+                    Console.WriteLine(new string('-', 40));
+
+                    Console.WriteLine("무슨 일을 하시겠습니까? : ");
+                    int number = Int32.Parse(Console.ReadLine());
+
+                    using (var context = new NHBankContext())
+                    {
+                        // 이름, 주민번호 일치하는 사람 찾기
+                        var personToEdit = context.NHBank.FirstOrDefault(p => p.AccountNumber == acoountnumber);
+
+                        // 해당 레코드가 존재하면 수정하기
+                        if (personToEdit != null)
+                        {
+                            if (number == 1)
+                            {
+                                personToEdit.Money += 100000;
+                                personToEdit.TransactionLog += DateTime.Now + " 식당알바 + 100,000원";
+                            }
+                            if (number == 2)
+                            {
+                                personToEdit.Money += 200000;
+                                personToEdit.TransactionLog += DateTime.Now + " 새우잡이 + 200,000원";
+                            }
+                            if (number == 3)
+                            {
+                                personToEdit.Money += 1000000;
+                                personToEdit.TransactionLog += DateTime.Now + " MES개발 + 1,000,000원";
+                            }
+                            // 변경 사항 저장
+                            context.SaveChanges();
+                            Console.WriteLine("일이 끝났습니다. 본인 명의의 계좌로 돈이 입금되었습니다.");
+                        }
+                        }
+                    }
+            }
+        }
+    }
+}
